@@ -26,7 +26,7 @@ export function Hero() {
           src={globe}
           alt=""
           sizes="(max-width: 768px) 100vw, 1000px"
-          className="absolute -bottom-[420px] left-1/2 w-[800px] max-w-none -translate-x-1/2 opacity-30 sm:-bottom-[590px] sm:w-[1000px]"
+          className="absolute -bottom-105 left-1/2 w-200 max-w-none -translate-x-1/2 opacity-30 sm:-bottom-147.5 sm:w-250"
         />
         <div className="absolute inset-0 bg-linear-to-b from-[#0a0a0b]/20 via-[#0a0a0b]/40 to-[#0a0a0b]/80" />
       </div>
