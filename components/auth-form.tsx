@@ -103,6 +103,16 @@ export function AuthForm({ mode, onSubmit, submitted }: AuthFormProps) {
               />
             </label>
           )}
+          {isSignUp && (
+            <label htmlFor="role" className="block text-sm font-medium text-zinc-200">
+              Account role
+              <select id="role" name="role" defaultValue="seeker" required className={inputClassName}>
+                <option value="seeker">Seeker</option>
+                <option value="recruiter">Recruiter</option>
+                <option value="admin">Admin</option>
+              </select>
+            </label>
+          )}
           <label
             htmlFor="email"
             className="block text-sm font-medium text-zinc-200"

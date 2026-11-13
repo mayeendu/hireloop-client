@@ -3,30 +3,41 @@
 import { useState, type FormEvent } from "react"
 import { AuthForm } from "@/components/auth-form"
 import { authClient } from "@/lib/auth-client";
+import { useRouter } from 'next/navigation'
 
 export default function SignUpPage() {
+    const router = useRouter();
     const [submitted, setSubmitted] = useState(false)
 
     const handleSignUp = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         setSubmitted(false)
         const formData = new FormData(event.currentTarget)
+        const role = formData.get("role")
+        if (role !== "seeker" && role !== "recruiter" && role !== "admin") {
+            throw new Error("Invalid account role")
+        }
         const data = {
             name: String(formData.get("name") ?? "").trim(),
             email: String(formData.get("email") ?? "").trim(),
             password: String(formData.get("password") ?? ""),
-        }
+            role,
+        } as const
 
         const { data: signUpData, error } = await authClient.signUp.email({
-            name: data.name, // required, The name of the user.
-            email: data.email, // required, The email address of the user.
-            password: data.password, // required, The password of the user. It should be at least 8 characters long and max 128 by default.
+            role: data.role,
+            name: data.name,
+            email: data.email,
+            password: data.password,
 
-            callbackURL: "/" // An optional URL to redirect to after the user signs up.
+            callbackURL: "/"
         });
 
         console.log("Sign Up Data:", signUpData, error);
         setSubmitted(!error)
+        if (!error) {
+            router.push("/");
+        }
 
     }
 
